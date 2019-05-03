@@ -1,0 +1,54 @@
+clear
+echo -e "\e[93mCPU INFORMATION" 
+
+#grep model /proc/cpuinfo #cat /proc/cpuinfo | grep model	 	
+printf "\e[97m"   
+echo
+echo Cores = $(nproc)
+echo Model Name : $(awk '/model name/{print $4" "$5" "$6}' /proc/cpuinfo | tail -n1)
+echo Vendor : $(awk '/vendor_id/{print $3}' /proc/cpuinfo | tail -n1)
+echo CPU Clock: $(awk '/model name/{print $9}' /proc/cpuinfo | tail -n1)  
+echo Processor : $(awk '/processor/{print $3}' /proc/cpuinfo ) 
+#grep "cpu MHz" /proc/cpuinfo | tail -n1
+#grep "processor" /proc/cpuinfo | tail -n1
+#grep "model name" /proc/cpuinfo | tail
+echo 
+echo -e "\e[92mHDD INFORMATION"
+echo -e "\e[97m "
+echo Hard Disc Model = $(cat /sys/block/sda/device/model)
+echo Manufactury = $(cat /sys/block/sda/device/vendor) 
+
+echo
+echo Memory Manipulation 
+echo
+echo Total Memory : $(awk '/MemTotal/{print $2}' /proc/meminfo) Mb 
+echo Free Memory : $(awk '/MemFree/{print $2}' /proc/meminfo) kB 
+echo Available Memory : $(awk '/MemAvailable/{print $2}' /proc/meminfo) kB 
+
+#cat /proc/meminfo | head -3
+#grep "MemTotal" cat /proc/meminfo
+#pydf 
+#echo $(df -h | grep ^/dev)
+echo
+echo -e "\e[34mUSB INFORMATION"
+echo -e "\e[97m "
+#echo USB_1 = $(grep "USB" /proc/bus/input/devices)
+echo USB Devices: $(awk '/N: Name=/{print \n $3" "$4}' /proc/bus/input/devices) 
+#grep "USB" /proc/bus/input/devices
+echo
+
+#awk '/processor/{print $3" "4}' BashBH
+
+
+
+
+#MyNotes
+#ForEachCoreLoc
+#cat /sys/bus/cpu/drivers/processor/cpu0
+#OnlyOneUsb
+#lsusb -D /dev/bus/usb/002/005
+#CPUINFO
+#lscpu
+#HowToUseGrepwithCommand
+#lscpu | grep 'Model'
+#df -h | awk '/^\///{print $1 " \t : "$5}' /bin/df
